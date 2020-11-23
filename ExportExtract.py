@@ -130,10 +130,22 @@ class EDIN():
 
 
     def remaining_reserve(self):
-        Remaining_by_country = pd.pivot_table(EDIN, values = 'Tot Remaining PP MMboe', columns = 'Country Names').T.sort_values(by = 'Tot Remaining PP MMboe')
+        Remaining_by_country = pd.pivot_table(self.EDINData, values = 'Tot Remaining PP MMboe', columns = 'Country Names').T.sort_values(by = 'Tot Remaining PP MMboe')
         return Remaining_by_country
 
+    def maturity_bubble(self):
+        '''
+        The data for bubble chart demonstrating the maturity of the assets in the datasheet
+        Not done yet
+        '''
+
+        remaining_reserve = self.EDINData['Tot Remaining PP MMboe'].fillna(0)
+        Tot_recoverable_2P = self.EDINData['Oil Recoverable PP MMbbl'].fillna(0)+self.EDINData['Cond Recoverable PP MMbbl'].fillna(0) + self.EDINData['Gas Recoverable PP MMscf'].fillna(0)/6
+        remaining_percentage = remaining_reserve/Tot_recoverable_2P
+        latest_prod_boed = (self.EDINData['Latest Annual Oil Prod bbl'].fillna(0) + self.EDINData['Latest Annual Gas Prod Mscf'].fillna(0)/6 + self.EDINData['Latest Annual Cond Prod bbl'].fillna(0))/365
+        return remaining_reserve, remaining_percentage, latest_prod_boed
 
 
 if __name__ == '__main__':
     main()   
+
