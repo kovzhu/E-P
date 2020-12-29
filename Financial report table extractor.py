@@ -204,8 +204,8 @@ def extract_tables_to_excel(company):
      
 def main():    
     extract_tables_to_excel('CNPC')
-    # extract_tables_to_excel('Sinopec')
-    # extract_tables_to_excel('CNOOC')
+    extract_tables_to_excel('Sinopec')
+    extract_tables_to_excel('CNOOC')
 
 
 if __name__ == '__main__':
