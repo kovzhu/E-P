@@ -5,33 +5,8 @@ Spyder Editor
 This is a temporary script file.
 """
 import pandas as pd
-# import matplotlib.pyplot as plt
-import camelot
 from tools import WriteToExcel, WriteToExcel_df
 import numpy as np
-
-# from secedgar.filings import Filing, FilingType
-
-
-# df = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/mpg_ggplot2.csv")
-# df_select = df.loc[df.cyl.isin([4,8]),:]
-
-# CNOOC_folder = r'C:\Users\Kunfeng.Zhu\OneDrive - IHS Markit\01_Key Research Topics\06_NOCs\CNOOC\Annual Reports'
-# file = r'\2019 annual report CNOOC ltd.pdf'
-# file2 = r'\gst-revenue-collection-march2020.pdf'
-# file3 = r'\2019 CNOOC 20-F.pdf'
-# table = camelot.read_pdf(CNOOC_folder+file3, pages = '15', password = None,flaver = 'stream',process_background=True)
-
-# CNOOC_SEC_2019 = r'https://www.sec.gov/Archives/edgar/data/0001095595/000095010320007907/dp124679_20f.htm'
-
-# SEC_ticker ={
-#     'CNOOC Limited':'CEO',
-#     'PetroChina':'PTR',
-#     'Sinopec':'SNP'
-#     }
-
-# CNPC_filings = Filing(cik_lookup='PTR',filing_type=FilingType.FILING_20F)
-# CNPC_filings.save(r'C:\Users\Kunfeng.Zhu\OneDrive - IHS Markit\01_Key Research Topics\06_NOCs\CNPC\Annual Reports\PetroChina\SEC filings')
 
 
 CNOOC_links ={
@@ -136,6 +111,17 @@ def table_extractor(link, items_to_extract):
                 pass
     return tables_extracted
 
+def number_converter(x):
+    # convert the numbers from string to values
+    try:
+        if x[0] =="(":
+            y = float(x[1:].replace(',',''))*-1
+        else:
+            y = float(x)
+    except:
+        y=x
+    return y
+
 def table_cleaning(tables_extracted,company):
     CNPC_CNOOC = [0,3,7,11,15,19,23,27,31,35,39]
     Sinopec = [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30]
@@ -152,12 +138,9 @@ def table_cleaning(tables_extracted,company):
         for i in columns_to_use:
            if i<columns_len:
                new_table = new_table.merge(table[i],how='outer', left_index = True, right_index = True)
-        tables_cleaned.append(new_table)
+        tables_cleaned.append(new_table.applymap(number_converter))  
     return tables_cleaned
 
-
-# for i in links:
-#     table_extractor(links[i],i,items_to_extract_for_CNOOC)
 def SaveToExcel(links, items_to_extract, company):
     for i in links:
         tables_extracted = table_extractor(links[i],items_to_extract)
@@ -166,6 +149,6 @@ def SaveToExcel(links, items_to_extract, company):
 
 
 
-# SaveToExcel(CNPC_links, items_to_extract_for_CNPC,'CNPC')
-SaveToExcel(Sinopec_links, items_to_extract_for_Sinopec,'Sinopec')
-# SaveToExcel(CNOOC_links, items_to_extract_for_CNOOC,'CNOOC')
+SaveToExcel(CNPC_links, items_to_extract_for_CNPC,'CNPC')
+# SaveToExcel(Sinopec_links, items_to_extract_for_Sinopec,'Sinopec')
+SaveToExcel(CNOOC_links, items_to_extract_for_CNOOC,'CNOOC')
