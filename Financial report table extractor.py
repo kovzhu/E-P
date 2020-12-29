@@ -5,34 +5,8 @@ Spyder Editor
 This is a temporary script file.
 """
 import pandas as pd
-# import matplotlib.pyplot as plt
-# import camelot
-# from tools import WriteToExcel, WriteToExcel_df
 import numpy as np
 import time
-
-# from secedgar.filings import Filing, FilingType
-
-
-# df = pd.read_csv("https://raw.githubusercontent.com/selva86/datasets/master/mpg_ggplot2.csv")
-# df_select = df.loc[df.cyl.isin([4,8]),:]
-
-# CNOOC_folder = r'C:\Users\Kunfeng.Zhu\OneDrive - IHS Markit\01_Key Research Topics\06_NOCs\CNOOC\Annual Reports'
-# file = r'\2019 annual report CNOOC ltd.pdf'
-# file2 = r'\gst-revenue-collection-march2020.pdf'
-# file3 = r'\2019 CNOOC 20-F.pdf'
-# table = camelot.read_pdf(CNOOC_folder+file3, pages = '15', password = None,flaver = 'stream',process_background=True)
-
-# CNOOC_SEC_2019 = r'https://www.sec.gov/Archives/edgar/data/0001095595/000095010320007907/dp124679_20f.htm'
-
-# SEC_ticker ={
-#     'CNOOC Limited':'CEO',
-#     'PetroChina':'PTR',
-#     'Sinopec':'SNP'
-#     }
-
-# CNPC_filings = Filing(cik_lookup='PTR',filing_type=FilingType.FILING_20F)
-# CNPC_filings.save(r'C:\Users\Kunfeng.Zhu\OneDrive - IHS Markit\01_Key Research Topics\06_NOCs\CNPC\Annual Reports\PetroChina\SEC filings')
 
 
 CNOOC_links ={
